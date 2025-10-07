@@ -1,10 +1,15 @@
 "use client";
 
+interface Note {
+  id: number;
+  title: string;
+}
+
 export default function NoteList({
   notes,
   onChanged,
 }: {
-  notes: any[];
+  notes: Note[];
   onChanged?: () => void;
 }) {
   async function handleDelete(id: number) {
@@ -25,7 +30,6 @@ export default function NoteList({
         >
           <div>
             <h3 className="font-semibold text-lg">{note.title}</h3>
-            <p className="text-gray-600 whitespace-pre-wrap">{note.content}</p>
           </div>
           <button
             onClick={() => handleDelete(note.id)}
