@@ -1,12 +1,14 @@
 import { createClient } from "@/lib/supabase/server";
 
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  { params }: { params: Promise<{ id: number }> }
 ) {
+  const id = (await params).id;
   const supabase = await createClient();
-
-  const id = Number(params.id);
+  console.log(id);
+  const user = supabase.auth.getUser();
+  console.log(user);
   const { error } = await supabase.from("notes").delete().eq("id", id);
 
   if (error) {
